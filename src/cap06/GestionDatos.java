@@ -407,7 +407,7 @@ public class GestionDatos extends JFrame{
 	public void cargarPorProvincia(String provincia) {
 		for (Municipio m: datosMunis.getListaMunicipios()) {
 			if (m.getProvincia().equals(provincia)) {
-				modeloTabla.addRow(new Object[] {m.getCodigo(), m.getNombre(),(int) m.getHabitantes(), (int) m.getHabitantes(), m.getProvincia(), m.getAutonomia()});
+				//modeloTabla.addRow(new Object[] {m.getCodigo(), m.getNombre(),(int) m.getHabitantes(), (int) m.getHabitantes(), m.getProvincia(), m.getAutonomia()});
 				municipiosAñadidos.add(m);
 				System.out.println(municipiosAñadidos);
 				//Esto es para el paso 8:
@@ -421,6 +421,25 @@ public class GestionDatos extends JFrame{
 					arrayPorProvincia.put(provincia, arr1);
 				}
 			}
+		}
+		//Ordeno los municipios de la Provincia seleccionada alfabeticamente
+		Collections.sort(arrayPorProvincia.get(provincia), new Comparator<Municipio>() {
+
+			@Override
+			public int compare(Municipio o1, Municipio o2) {
+				return o1.getNombre().compareTo(o2.getNombre());
+			}
+		});
+		// Voy añadiendo cada uno de ellos
+		for (Municipio m: arrayPorProvincia.get(provincia)) {
+            modeloTabla.addRow(new Object[]{
+	                m.getCodigo(),
+	                m.getNombre(),
+	                m.getHabitantes(),
+	                m.getHabitantes(),
+	                m.getProvincia(),
+	                m.getAutonomia()
+	            });
 		}
 		pnlVisualizacion.setMunis(municipiosAñadidos);
 	}

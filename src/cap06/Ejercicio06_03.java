@@ -59,7 +59,6 @@ public class Ejercicio06_03 {
 			ventPrueba.setDatos(dataset);
 			ventPrueba.setVisible( true );
 			
-			
 		} catch (IOException e) {
 			System.err.println( "Error en carga de municipios" );
 		}
