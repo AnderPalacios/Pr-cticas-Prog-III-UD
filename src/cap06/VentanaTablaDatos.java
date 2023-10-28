@@ -10,6 +10,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+
+/*
+ ************************************************************************************
+ *___________________________________________________________________________________
+ * EN LA PRACTICA 6 NO USO ESTA CLASE DEL EJERCICIO 6.3, LA HE USADO COMO REFERENCIA
+ * __________________________________________________________________________________
+ * **********************************************************************************
+ */
+
+
 public class VentanaTablaDatos extends JFrame {
 	
 	//Atributo preuba para probar;
@@ -253,24 +263,23 @@ public class VentanaTablaDatos extends JFrame {
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			// System.out.println( "getValueAt " + rowIndex + "," + columnIndex );
-//			switch (columnIndex) {
-//			case 0:
-//				return datosMunis.getListaMunicipios().get(rowIndex).getCodigo();
-//			case 1:
-//				return datosMunis.getListaMunicipios().get(rowIndex).getNombre();
-//			case 2:
-//				return datosMunis.getListaMunicipios().get(rowIndex).getHabitantes();
-//			case 3:
-//				return datosMunis.getListaMunicipios().get(rowIndex).getProvincia();
-//			case 4:
-//				return datosMunis.getListaMunicipios().get(rowIndex).getAutonomia();
-//			case 5:
-//				return datosMunis.getListaMunicipios().get(rowIndex).getHabitantes();
-//			default:
-//				return null;
-//			}
-			return null;
+			 System.out.println( "getValueAt " + rowIndex + "," + columnIndex );
+			switch (columnIndex) {
+			case 0:
+				return datosMunis.getListaMunicipios().get(rowIndex).getCodigo();
+			case 1:
+				return datosMunis.getListaMunicipios().get(rowIndex).getNombre();
+			case 2:
+				return datosMunis.getListaMunicipios().get(rowIndex).getHabitantes();
+			case 3:
+				return datosMunis.getListaMunicipios().get(rowIndex).getProvincia();
+			case 4:
+				return datosMunis.getListaMunicipios().get(rowIndex).getAutonomia();
+			case 5:
+				return datosMunis.getListaMunicipios().get(rowIndex).getHabitantes();
+			default:
+				return null;
+			}
 		}
 
 		@Override

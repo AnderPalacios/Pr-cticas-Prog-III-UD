@@ -42,12 +42,12 @@ import javax.swing.tree.TreePath;
 
 import cap06.DataSetMunicipios;
 
-public class Prueba extends JFrame{
+public class GestionDatos extends JFrame{
 	
 	private DataSetMunicipios datosMunis;
 	private JTree tree;
 	private DefaultTreeModel treeModel;
-	private DefaultMutableTreeNode raiz; //Lo creo como argumento porque lo necesitaré como argumneto
+	private DefaultMutableTreeNode raiz; //Lo creo como argumento porque lo necesitaré
 	private JTable tablaDatos;
 	private MiModeloTabla modeloTabla;
 	private panelGrafico pnlVisualizacion;
@@ -72,7 +72,7 @@ public class Prueba extends JFrame{
 	private static final int COL_PROVINCIA = 4;
 	private boolean activa = false; //Para que el panel esté 'vacío' hasta que selecciones la primera provincia a ver en el gráfico
 	
-	public Prueba() {
+	public GestionDatos() {
 		
 		setTitle("VentanaComponentes");
 		setSize( 700, 700 );
@@ -166,7 +166,7 @@ public class Prueba extends JFrame{
 				
 				modeloTabla.setRowCount(0); //Primero, quito todas las líneas
 				
-				
+				//Añado todos los municipios ordenados (el criterio de ordenacion se gestiona arriba)
 				for (String s: arrayPorProvincia.keySet()) {
 			        for (Municipio municipio : arrayPorProvincia.get(s)) {
 			            modeloTabla.addRow(new Object[]{
@@ -210,31 +210,6 @@ public class Prueba extends JFrame{
 				mapaPoblacionPorProvincia.put(m.getProvincia(),m.getHabitantes()+habitantesComulativos);
 			}
 		}
-		
-//		HashMap<String, Integer> mapa1 = new HashMap<String, Integer>();
-//		//PRUEBA
-//		for (Municipio m: datosMunis.getListaMunicipios()) {
-//			if (m.getProvincia().equals("Madrid")) {
-//				String madr = m.getProvincia();
-//				if (!mapa1.containsKey(madr)) {
-//					mapa1.put(madr, m.getHabitantes());
-//				}
-//				else {
-//					int habia = mapa1.get(madr);
-//					mapa1.put(madr, m.getHabitantes()+habia);
-//				}
-//			}
-//		}
-//		for (String key: mapa1.keySet()) {
-//			System.out.println(mapa1.get(key));
-//		}
-		
-		//Np se porque en algunos sale null, por ahora lo soluciono así
-//		for (String key: mapaPoblacionPorProvincia.keySet()) {
-//			if (mapaPoblacionPorProvincia.get(key) == null) {
-//				mapaPoblacionPorProvincia.put(key, 0);
-//			}
-//		}
 		System.out.println(mapaPoblacionPorProvincia);
 		//this.datosMunis = datosMunis; (No sé porque estaba dos veces)
 		
@@ -511,34 +486,6 @@ public class Prueba extends JFrame{
 			super.setValueAt(aValue, row, column);
 		}
 		
-		// Para trabajar con los escuchadores
-//		ArrayList<TableModelListener> listaEsc = new ArrayList<>();
-//		@Override
-//		public void addTableModelListener(TableModelListener l) {
-//			System.out.println( "addTableModelListener" );
-//			listaEsc.add( l );
-//		}
-//
-//		@Override
-//		public void removeTableModelListener(TableModelListener l) {
-//			listaEsc.remove( l );
-//		}
-//		
-//		// DefaultTableModel lo hace así
-////		public void fireTableChanged( TableModelEvent e ) {
-////			for (TableModelListener l : listaEsc) {
-////				l.tableChanged( e );
-////			}
-////		}
-//		
-//		public void borraFila( int fila ) {
-//			fireTableChanged( new TableModelEvent( modeloTabla, municipiosAñadidos.size(), municipiosAñadidos.size() ));
-//		}
-//		
-//	    public void anyadeFila( int fila ) {
-//	    	fireTableChanged( new TableModelEvent( modeloTabla, municipiosAñadidos.size(), municipiosAñadidos.size() ) );  // Para que detecte el cambio en todas
-//	    }
-		
 	}
 	
 	
@@ -584,12 +531,12 @@ public class Prueba extends JFrame{
 		        Graphics2D g2d = (Graphics2D) g;
 		        
 		        int barWidth = 50;
-		        double Provincia = valorProvincia/100000*3; // Escala el valor para la altura de la primera barra
-		        double Estado = poblacionEstado/100000*3; // Escala el valor para la altura de la segunda barra
+		        double Provincia = valorProvincia/100000*3; // Altura de la primera barra
+		        double Estado = poblacionEstado/100000*3; // Altura de la segunda barra
 
 		        int x1 = 50; // Posición x de la primera barra
 		        int x2 = 150; // Posición x de la segunda barra
-		        int y = 650; // Posición y de ambas barras
+		        int y = 650;
 
 		        g2d.setColor(Color.blue);
 		        g2d.fill(new Rectangle2D.Double(x1, y - Provincia, barWidth, Provincia));
@@ -601,7 +548,7 @@ public class Prueba extends JFrame{
 		        g2d.drawLine(x1-5, y, x2+barWidth, y);
 		        g2d.drawLine(x1-5, 650, x1, x1);
 		        
-		        //Dubijar ejes X e y:
+		        //Dibujar ejes X e y:
 		        g2d.drawString("X (Provincia/Estado)", x2+barWidth-15, y+15);
 		        g2d.drawString("Y (nº Habitantes)", x1-5, 45);
 		        //g2d.drawRect(155, 90, 40, 20); 
@@ -627,9 +574,3 @@ public class Prueba extends JFrame{
 	}
 
 }
-
-//Apuntes:
-/*
- * Crear clase que implemente de TableModel
- * crear metodos (como los de clase) que estén a las escucha de eventos (borrarFila...)
- */
