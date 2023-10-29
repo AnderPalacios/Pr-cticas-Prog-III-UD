@@ -26,7 +26,7 @@ public class Ejercicio06_03 {
 	//private static VentanaTablaDatos ventanaDatos;
 	
 	//Para práctica 6
-	private static GestionDatos ventPrueba;
+	private static GestionDatos ventDatos;
 	
 	public static void main(String[] args) {
 		ventana = new JFrame( "Ejercicio 6.3" );
@@ -55,9 +55,9 @@ public class Ejercicio06_03 {
 				System.out.println( "\t" + m );
 			}
 			
-			ventPrueba = new GestionDatos();
-			ventPrueba.setDatos(dataset);
-			ventPrueba.setVisible( true );
+			ventDatos = new GestionDatos(ventana);
+			ventDatos.setDatos(dataset);
+			ventDatos.setVisible( true );
 			
 		} catch (IOException e) {
 			System.err.println( "Error en carga de municipios" );

@@ -13,6 +13,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,7 +74,7 @@ public class GestionDatos extends JFrame{
 	private static final int COL_PROVINCIA = 4;
 	private boolean activa = false; //Para que el panel esté 'vacío' hasta que selecciones la primera provincia a ver en el gráfico
 	
-	public GestionDatos() {
+	public GestionDatos(JFrame ventOrigen) {
 		
 		setTitle("VentanaComponentes");
 		setSize( 700, 700 );
@@ -82,13 +84,16 @@ public class GestionDatos extends JFrame{
 		//Componente 1:
 		JLabel lblMensaje = new JLabel("Práctica tema 6 SWING");
 		add(lblMensaje, BorderLayout.NORTH);
-
+		
+		//Componente 2:
 		tree = new JTree();
 		add(new JScrollPane(tree), BorderLayout.WEST);
 		
+		//Componente 3:
 		tablaDatos = new JTable();
 		add(new JScrollPane(tablaDatos), BorderLayout.CENTER);
 		
+		//Componente 4:
 		pnlVisualizacion = new panelGrafico(0);
 		pnlVisualizacion.add(new JLabel("Gráfico población: Rojo - Estado, Azul - Provincia"),BorderLayout.SOUTH);
 		add(pnlVisualizacion, BorderLayout.EAST);
@@ -102,6 +107,17 @@ public class GestionDatos extends JFrame{
 		pnlBotonera.add(btnBorrar);
 		pnlBotonera.add(btnOrdenar);
 		add(pnlBotonera, BorderLayout.SOUTH);
+		
+		this.addWindowListener( new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				ventOrigen.setVisible( false );
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				ventOrigen.setVisible( true );
+			}
+		});
 		
 		//Paso 8:
 		btnInsertar.addActionListener(new ActionListener() {
@@ -221,7 +237,7 @@ public class GestionDatos extends JFrame{
 		
 		//Paso 11:
 		tree.setCellRenderer(new DefaultTreeCellRenderer() {
-			private JProgressBar pb = new JProgressBar(0,4000000);
+			private JProgressBar pb = new JProgressBar(0,5000000);
 
 			@Override
 			public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
@@ -489,7 +505,7 @@ public class GestionDatos extends JFrame{
 		//Paso 6
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			if (column == 4 || column == 5) {
+			if (column == 0 || column == 4 || column == 5) { //La columna del código tampoco es editable
 				return false;
 			}
 			return super.isCellEditable(row, column);
@@ -545,7 +561,14 @@ public class GestionDatos extends JFrame{
 
 		public void paintComponent(Graphics g) {
 			
-			if (activa) {
+			//if (activa) {
+			/*
+			 * Esto (if(activa)) lo había usado para que el gráfico se empezara a
+			 * a ver una vez seleccionada una provincia pero el enunciado indica que 
+			 * la escala del estado sea siempre visible. Sin esta condición, se ve la
+			 *  escala del estado pero no la de la provincia porque ne se ha seleccionado
+			 * ninguna todavía.
+			 */
 		        super.paintComponent(g);
 		        Graphics2D g2d = (Graphics2D) g;
 		        
@@ -587,7 +610,7 @@ public class GestionDatos extends JFrame{
 		        		acomulado += m.getHabitantes()/100000*3;
 		        	}
 		        }
-			}
+			//}
 	        
 		}
 	}
