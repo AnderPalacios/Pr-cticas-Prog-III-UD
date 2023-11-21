@@ -248,7 +248,7 @@ private static void procesaLineaDatos( ArrayList<Object> datos ) {
 // TODO Cambiar este proceso si se quiere hacer algo con las cabeceras
 numLin++;
 //System.out.println( numLin + "\t" + datos );  // Saca la cabecera por consola
-vent.getTextArea().append("dasdsdsad");
+//vent.getTextArea().append("dasdsdsad"); //Para probar en ejercico de swing
 UsuarioTwitter usuario = new UsuarioTwitter((String)datos.get(0),(String)datos.get(1),(ArrayList<String>)datos.get(2),(String)datos.get(3),
 (long)datos.get(4),(long)datos.get(5),(String)datos.get(6),(long)datos.get(7),(String)datos.get(8),(ArrayList<String>)datos.get(9));
 
