@@ -40,12 +40,14 @@ public class Enigma implements Serializable { //Es el objeto que voy a enviar, i
 	}
 	
 	/**
-	 * Es un método que para simular los mensajes encrptados de Alemania en la segunda guerra mundial.
-	 * Este método de encriptación consiste en sustituir cada letra (mayúscula o minúscula y sin tener en cuenta las tildes)
-	 * por la letra que en el abecedario ocupa la posición de la letra a reemplzar mas tres posiciones. 
-	 * Además, sustituye las comas por los puntos para que sea mas complicado poder descifrarlo.
+	 * Es un método para simular los mensajes encriptados de Alemania en la segunda guerra mundial.
+	 * Este método de encriptación consiste en sustituir cada letra (mayúscula o minúscula y sin tener en cuenta las tildes).
+	 * Por el modo de operar de la funcion cualquier letra con tilde se sustituye por la letra c en este método.
+	 * El resto de letras se sustituyen por la letra que en el abecedario ocupa la posición de esa letra a reemplzar mas tres posiciones. 
+	 * De las letras X, Y, Z se vuelve a pasar al inicio del abecedario.
+	 * Además, el método sustituye las comas por los puntos para que sea mas complicado poder descifrarlo.
 	 * Como en los mensajes eran importatntes las fechas, también se reemplazan los números: Si el numero
-	 * es mayor o igual que 5 se le suma dos y si es menor se resta 1. 
+	 * es mayor o igual que 5 se le suma dos y si es menor se resta 1 (de 9 se pasa a 0 y de 0 a 9 al restar 1). 
 	 */
 	protected static String encriptar(String mensajeAEnviar) {
 		
@@ -73,17 +75,6 @@ public class Enigma implements Serializable { //Es el objeto que voy a enviar, i
 	    }
 
 	    return mensajeEncriptado.toString();
-	}
-	
-	public static void main(String[] args) {
-		Enigma e = new Enigma("", "");
-		System.out.println(e.encriptar("Atacar a la base de Francia"));
-		System.out.println(e.encriptar(","));
-		System.out.println(e.encriptar("9"));
-		System.out.println(e.encriptar("HELLO WORLD"));
-		System.out.println(Enigma.encriptar("Japón"));
-		System.out.println(Enigma.encriptar("ó"));
-		
 	}
 	
 }

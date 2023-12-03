@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,12 +21,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+
 public class Cliente extends JFrame{
+	
+	private static Logger logger = Logger.getLogger(Cliente.class.getName());
 	
 	private JPanel pnlPrincipal;
 	private JTextField txtEnvio;
 	private JButton btnEnvio;
 	private JLabel lblFoto;
+	private JLabel lblTexto;
 	private JComboBox<String> comboAliados;
 	
 	public static void main(String[] args) {
@@ -32,7 +40,62 @@ public class Cliente extends JFrame{
 		
 	}
 	
+	public JPanel getPnlPrincipal() {
+		return pnlPrincipal;
+	}
+
+	public void setPnlPrincipal(JPanel pnlPrincipal) {
+		this.pnlPrincipal = pnlPrincipal;
+	}
+
+	public JTextField getTxtEnvio() {
+		return txtEnvio;
+	}
+
+	public void setTxtEnvio(JTextField txtEnvio) {
+		this.txtEnvio = txtEnvio;
+	}
+
+	public JButton getBtnEnvio() {
+		return btnEnvio;
+	}
+
+	public void setBtnEnvio(JButton btnEnvio) {
+		this.btnEnvio = btnEnvio;
+	}
+
+	public JLabel getLblFoto() {
+		return lblFoto;
+	}
+
+	public void setLblFoto(JLabel lblFoto) {
+		this.lblFoto = lblFoto;
+	}
+
+	public JLabel getLblTexto() {
+		return lblTexto;
+	}
+
+	public void setLblTexto(JLabel lblTexto) {
+		this.lblTexto = lblTexto;
+	}
+
+	public JComboBox<String> getComboAliados() {
+		return comboAliados;
+	}
+
+	public void setComboAliados(JComboBox<String> comboAliados) {
+		this.comboAliados = comboAliados;
+	}
+
 	public Cliente() {
+		
+		try {
+			Handler h = new FileHandler("errores.log");
+			logger.addHandler(h);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Error al configurar el logger de archivo", e);
+		}
 		
 		setSize(250, 300);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -63,7 +126,7 @@ public class Cliente extends JFrame{
 		});
 		pnlPrincipal.add(comboAliados);
 		
-		JLabel lblTexto = new JLabel("ALIADO - ALEMANIA");
+		lblTexto = new JLabel("ALIADO - ALEMANIA");
 		pnlPrincipal.add(lblTexto);
 		
 		pnlPrincipal.add(corregirImagen(lblFoto, new ImageIcon(getClass().getResource("banderaItalia.jpg"))));
@@ -79,6 +142,7 @@ public class Cliente extends JFrame{
 				
 				//Creo el Socket en el evento para que se cree cuando pulse el botón
 				try {
+					//Utilizando mi IP
 					Socket misocket = new Socket("192.168.1.101", 7777); //Segundo argumento es el puerto
 					
 					Enigma mensajeEnigma = new Enigma();
@@ -95,6 +159,7 @@ public class Cliente extends JFrame{
 					
 				} catch (Exception e2) {
 					System.out.println(e2.getMessage());
+					logger.log(Level.SEVERE, "Error al enviar mensaje", e2);
 				}
 				
 			}

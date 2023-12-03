@@ -17,22 +17,25 @@ import javax.swing.JPanel;
 public class VentanaMain extends  JFrame{ 
 	
 	private static Dimension TAMAYO_PANTALLA = Toolkit.getDefaultToolkit().getScreenSize();
+	private Cliente aliado = new Cliente();
+	private Servidor alemania = new Servidor();
 	
-	public static void main(String[] args) {
-		
-		Cliente aliado = new Cliente();
-		Servidor alemania = new Servidor();
-		
-		VentanaMain ventM = new VentanaMain(aliado, alemania);
-		ventM.setVisible( true );
-		
-		alemania.setVisible( true );
-		aliado.setVisible( true );
-		
-			
-		
+	public Cliente getAliado() {
+		return aliado;
 	}
-	
+
+	public void setAliado(Cliente aliado) {
+		this.aliado = aliado;
+	}
+
+	public Servidor getAlemania() {
+		return alemania;
+	}
+
+	public void setAlemania(Servidor alemania) {
+		this.alemania = alemania;
+	}
+
 	public VentanaMain(JFrame ventServidor, JFrame ventCliente) {
 		
 		setTitle("SEGUNDA GUERRA MUNDIAL");
@@ -60,12 +63,31 @@ public class VentanaMain extends  JFrame{
 			public void windowClosing(WindowEvent e) {
 				ventServidor.dispose();
 				ventCliente.dispose();
+				FreeChart f = new FreeChart("WWII");
+				f.setVisible( true );
 				
 			}
 
 		});
 	}
 	
+	public JFrame getVentanaMain() {
+		VentanaMain vent = new VentanaMain(null, null);
+		return vent;
+		
+	}
 	
+	public static void main(String[] args) {
+		
+		Cliente aliado = new Cliente();
+		Servidor alemania = new Servidor();
+		
+		VentanaMain ventM = new VentanaMain(aliado, alemania);
+		ventM.setVisible( true );
+		
+		alemania.setVisible( true );
+		aliado.setVisible( true );
+
+	}
 
 }

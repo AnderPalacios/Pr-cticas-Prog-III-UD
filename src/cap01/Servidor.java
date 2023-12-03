@@ -7,6 +7,8 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class Servidor extends JFrame {
+	
+	private static Logger logger = Logger.getLogger(Servidor.class.getName());
 	
 	public static void main(String[] args) {
 		
@@ -24,6 +28,15 @@ public class Servidor extends JFrame {
 
 	private JTextArea txtaTexto;
 	
+	public JTextArea getTxtaTexto() {
+		return txtaTexto;
+	}
+
+	public void setTxtaTexto(JTextArea txtaTexto) {
+		this.txtaTexto = txtaTexto;
+	}
+
+
 	public Servidor() {
 		
 		setSize(250, 300);
@@ -61,15 +74,16 @@ public class Servidor extends JFrame {
 							mensaje = mensaje_encriptado.getMensaje();
 							
 							txtaTexto.append("\n - " + destino + ": " + mensaje);
+							logger.info("Mensaje recibido de " + destino);
 						} catch (ClassNotFoundException e) {
-							e.printStackTrace();
+							logger.log(Level.SEVERE, "Error al leer el objeto Enigma", e);
 						}
 						
 						misocket.close(); //Cierro la conexión
 					}
 					
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.log(Level.SEVERE, "Error en la operación del servidor", e);
 				}
 				
 			}
