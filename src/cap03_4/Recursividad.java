@@ -23,7 +23,7 @@ public class Recursividad {
 		
 	}
 	
-	//PRIMER EJERCICIO:
+	//PRIMER EJERCICIO: 
 	private static String invertirFrase1(String frase) {
 		if (frase.length() <= 1) {
 			return frase; // En el caso base devuelvo esa última letra del string
