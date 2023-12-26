@@ -2,7 +2,7 @@ package cap03_4;
 
 import java.util.ArrayList;
 
-public class Carta {
+public class Carta implements Comparable<Carta>{
 	
 	enum Numeros {I, II, III, IV, V, VI, VII, X, XI, XII};
 	enum Palo {OROS, BASTOS, ESPADAS, CORONAS};
@@ -60,6 +60,15 @@ public class Carta {
 	public static void main(String[] args) {
 		Carta.cargarCartas();
 		System.out.println(Carta.baraja);
+	}
+
+	@Override
+	public int compareTo(Carta o) {
+		int comparaPalo = this.palo.compareTo(o.palo);
+		if (comparaPalo != 0) {
+			return comparaPalo;
+		}
+		return this.numero.compareTo(o.numero);
 	}
 	
 	
